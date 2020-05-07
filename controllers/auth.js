@@ -90,10 +90,22 @@ const verify = (req, res) => {
 };
 
 
+const get = (req, res) => {
+    db.User.findById(req.params.id, (err, foundUser) => {
+        if (err) return res.status(500).json({
+            status: 500,
+            message: 'Something went wrong. Please try again.'
+        })
+        return res.json(foundUser)
+    })
+}
+
+
 
 module.exports ={
     register,
     login,
     logout,
-    verify
+    verify,
+    get
 }

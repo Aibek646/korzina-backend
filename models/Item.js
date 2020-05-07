@@ -8,10 +8,14 @@ const ItemSchema = mongoose.Schema({
     description: String,
 
     image: String,
+    
+    imageback: String,
 
     createdAt: String,
 
     Color: String,
+
+    Price: String,
 
     comments: [Comment.schema],
 })

@@ -8,6 +8,7 @@ const ctrl = require('../controllers')
 router.post('/register', ctrl.auth.register)
 router.post('/login', ctrl.auth.login)
 router.get('/verify', ctrl.auth.verify)
-router.get('/logout', ctrl.auth.logout)
+router.delete('/logout', ctrl.auth.logout)
+router.get('/getuser/:id', ctrl.auth.get)
 
 module.exports = router

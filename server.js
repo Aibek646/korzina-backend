@@ -1,15 +1,28 @@
 const express = require('express')
-const app = express()
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
+const morgan = require('morgan')
 const cors = require('cors')
+const app = express()
 require('dotenv').config()
 const db = require('./models')
 const routes = require('./routes')
 
 
 //MIDDLEWARE
+// Handle Cors
+const corsOptions = {
+    origin: [`http://localhost:3000`],
+    credentials: true, // allows the session cookie to be sent back and forth from server to client
+    optionsSuccessStatus: 200 // some legacy browsers choke on status 204
+}
+
+app.use(cors(corsOptions))
+
+app.use(morgan('tiny'))
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -34,6 +47,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/auth', routes.auth)
+app.use('/api/v1/items', routes.item)
 
 
 app.listen(3001, () => {
