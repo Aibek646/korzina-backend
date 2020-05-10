@@ -9,13 +9,15 @@ const ItemSchema = mongoose.Schema({
 
     image: String,
     
-    imageback: String,
+    image2: String,
 
     createdAt: String,
 
-    Color: String,
+    color: String,
 
-    Price: String,
+    color2: String,
+
+    price: String,
 
     comments: [Comment.schema],
 })
