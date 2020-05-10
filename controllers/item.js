@@ -53,10 +53,32 @@ const newComment = (req, res) => {
 const getComment = (req ,res) => {
      db.Item.findById(req.params.itemId, (err, foundItem) => {
          if (err) {
-             return res.status(400).json({ status: 400, error: 'Something went wrond' })
+             return res.status(400).json({ status: 400, error: 'Something went wrong' })
          }
          res.json(foundItem.comments)
      })
+}
+
+const deleteComment = (req, res) => {
+    db.Item.findById(req.params.itemId, (err, foundItem) => {
+        if(err) {
+            return res.status(400).json({status: 400, error: 'Something went wrong'})
+        }
+        const commentToDelete = foundItem.comments.id(req.params.commentId)
+
+        if(!commentToDelete){
+            return res.status(400).json({status: 400, error: 'Could not find post'});
+        }
+
+        commentToDelete.remove();
+
+        foundItem.save((err, savedItem) => {
+            if(err) {
+                return res.status(400).json({ status: 400, error: 'Something went wrong, please try again' });
+            }
+            res.json(savedItem)
+        })
+    })
 }
 
 
@@ -66,4 +88,5 @@ module.exports = {
     showItem,
     newComment,
     getComment,
+    deleteComment,
 }
