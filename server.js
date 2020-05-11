@@ -48,6 +48,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', routes.auth)
 app.use('/api/v1/items', routes.item)
+app.use('/api/v1/user', routes.user)
 
 
 app.listen(3001, () => {
